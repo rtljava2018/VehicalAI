@@ -25,6 +25,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,12 +69,18 @@ public class CarCameraCaptureActivity extends BaseActivity {
     ImageView homeCardImage;
     @BindView(R.id.placeholderinfo)
     ImageView placeholderinfo;
+    @BindView(R.id.placeoverlayimage)
+    ImageView placeoverlayimage;
 
    /* @BindView(R.id.watermark)
     ImageView watermark;*/
 
     @BindView(R.id.camera)
     CameraView camera;
+    @BindView(R.id.ll_view_point)
+    LinearLayout ll_view_point;
+    @BindView(R.id.txt_hint1)
+    TextView txt_hint1;
 
 
     private Uri mCapturedImageURI = null;
@@ -112,7 +119,9 @@ public class CarCameraCaptureActivity extends BaseActivity {
         carPosition = getIntent().getExtras().getInt("carposition", 1);
 
         homeCardImage.setVisibility(View.GONE);
+        placeoverlayimage.setVisibility(View.GONE);
         placeholderinfo.setVisibility(View.VISIBLE);
+        ll_view_point.setVisibility(View.VISIBLE);
         camera.setLifecycleOwner(this);
         camera.addCameraListener(new Listener());
 
@@ -125,17 +134,20 @@ public class CarCameraCaptureActivity extends BaseActivity {
             case 2:
                 placeholderinfo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_sideview));
                 tvInfo.setText("Please take a picture of the side view of your vehicle");
+                placeoverlayimage.setVisibility(View.VISIBLE);
+                txt_hint1.setVisibility(View.VISIBLE);
+                ll_view_point.setVisibility(View.GONE);
                 tv_camera_hint.setText("Side View");
                 break;
             case 3:
                 placeholderinfo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_backview));
-                tvInfo.setText("Please take a picture of the back side view of your vehicle");
+                tvInfo.setText("Please take a picture of the back side view of your vehicle, focus as per screen");
                 tv_camera_hint.setText("Back View");
                 break;
             case 4:
                 placeholderinfo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_steering));
                 tvInfo.setText("Please take a picture of the steering view of your vehicle");
-                tv_camera_hint.setText("steering View");
+                tv_camera_hint.setText("Steering View");
                 break;
             case 5:
                 placeholderinfo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_tyer));
