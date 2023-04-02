@@ -61,7 +61,7 @@ public class CarCameraCaptureActivity extends BaseActivity {
     public static final String RETURN_DATA = "return-data";
     @BindView(R.id.tv_instruction)
     TextView tvInfo;
-    @BindView(R.id.tv_camera_hint)
+    @BindView(R.id.txt_hint1)
     TextView tv_camera_hint;
     @BindView(R.id.iv_camera_button)
     ImageView iv_camera_button;
@@ -69,7 +69,7 @@ public class CarCameraCaptureActivity extends BaseActivity {
     ImageView homeCardImage;
     @BindView(R.id.placeholderinfo)
     ImageView placeholderinfo;
-    @BindView(R.id.placeoverlayimage)
+    @BindView(R.id.watermark)
     ImageView placeoverlayimage;
 
    /* @BindView(R.id.watermark)
@@ -79,7 +79,7 @@ public class CarCameraCaptureActivity extends BaseActivity {
     CameraView camera;
     @BindView(R.id.ll_view_point)
     LinearLayout ll_view_point;
-    @BindView(R.id.txt_hint1)
+    @BindView(R.id.tv_camera_hint)
     TextView txt_hint1;
 
 
@@ -119,40 +119,51 @@ public class CarCameraCaptureActivity extends BaseActivity {
         carPosition = getIntent().getExtras().getInt("carposition", 1);
 
         homeCardImage.setVisibility(View.GONE);
-        placeoverlayimage.setVisibility(View.GONE);
+        placeoverlayimage.setVisibility(View.VISIBLE);
         placeholderinfo.setVisibility(View.VISIBLE);
-        ll_view_point.setVisibility(View.VISIBLE);
+        ll_view_point.setVisibility(View.GONE);
         camera.setLifecycleOwner(this);
         camera.addCameraListener(new Listener());
 
         switch (carPosition) {
             case 1:
                 placeholderinfo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_frontview));
+                placeoverlayimage.setBackgroundResource( R.drawable.ic_carfront);
                 tvInfo.setText("Please take a picture of the font side view of your vehicle");
                 tv_camera_hint.setText("Front View");
                 break;
             case 2:
                 placeholderinfo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_sideview));
+                placeoverlayimage.setBackgroundResource( R.drawable.ic_carside_view);
                 tvInfo.setText("Please take a picture of the side view of your vehicle");
                 placeoverlayimage.setVisibility(View.VISIBLE);
-                txt_hint1.setVisibility(View.VISIBLE);
-                ll_view_point.setVisibility(View.GONE);
+               // txt_hint1.setVisibility(View.VISIBLE);
+               // ll_view_point.setVisibility(View.GONE);
                 tv_camera_hint.setText("Side View");
                 break;
             case 3:
                 placeholderinfo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_backview));
+                placeoverlayimage.setBackgroundResource( R.drawable.ic_carfront);
                 tvInfo.setText("Please take a picture of the back side view of your vehicle, focus as per screen");
                 tv_camera_hint.setText("Back View");
                 break;
             case 4:
                 placeholderinfo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_steering));
+                placeoverlayimage.setBackgroundResource( R.drawable.ic_tyre);
                 tvInfo.setText("Please take a picture of the steering view of your vehicle");
                 tv_camera_hint.setText("Steering View");
                 break;
             case 5:
                 placeholderinfo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_tyer));
+                placeoverlayimage.setBackgroundResource( R.drawable.ic_tyre);
                 tvInfo.setText("Please take a picture of the Tyres view of your vehicle");
                 tv_camera_hint.setText("Tyres View");
+                break;
+            case 6:
+                placeholderinfo.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_odometer));
+                placeoverlayimage.setBackgroundResource( R.drawable.ic_odometer);
+                tvInfo.setText("if required later will do");
+                tv_camera_hint.setText("oddometer");
                 break;
 
         }
